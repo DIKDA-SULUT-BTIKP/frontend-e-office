@@ -10,7 +10,6 @@ const AddLetterPage = () => {
   const [name, setName] = useState("");
   const [originOfLetter, setOriginOfLetter] = useState("");
   const [number, setNumber] = useState("");
-  const [to, setTo] = useState("KEPALA DINAS");
   const [dateOfLetter, setDateOfLetter] = useState("");
   const [type, setType] = useState("Umum");
   const [regarding, setRegarding] = useState("");
@@ -47,7 +46,6 @@ const AddLetterPage = () => {
       formData.append("name", name);
       formData.append("type", type);
       formData.append("originOfLetter", originOfLetter);
-      formData.append("to", to);
       formData.append("number", number);
       formData.append("characteristic", characteristic);
       formData.append("dateOfLetter", dateOfLetter);
@@ -207,22 +205,6 @@ const AddLetterPage = () => {
                 value={regarding}
                 className="w-full px-3 py-2 mt-1 border rounded-lg"
               />
-            </div>
-            <div className="mb-5">
-              <label
-                htmlFor=""
-                className="block pb-1 text-sm font-semibold text-gray-600"
-              >
-                Tujuan
-              </label>
-              <select
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
-                className="w-full px-3 py-2 mt-1 border rounded-lg"
-              >
-                <option value="KEPALA DINAS">Kepala Dinas</option>
-                <option value="SEKRETARIS">Sekretaris</option>
-              </select>
             </div>
             <div className="relative border border-gray-500 border-dashed">
               <input

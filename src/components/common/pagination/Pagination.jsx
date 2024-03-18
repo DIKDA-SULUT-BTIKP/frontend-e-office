@@ -1,7 +1,7 @@
 import ReactPaginate from "react-paginate";
 import PropTypes from "prop-types";
 
-const Pagination = ({ changePage, pages, rows }) => {
+const Pagination = ({ pageCount, onPageChange, rows, page, pages }) => {
   return (
     <nav
       className="flex items-center justify-between w-full"
@@ -52,8 +52,8 @@ const Pagination = ({ changePage, pages, rows }) => {
             </svg>
           </>
         }
-        pageCount={Math.min(10, pages)}
-        onPageChange={changePage}
+        pageCount={pageCount}
+        onPageChange={onPageChange}
         containerClassName={"flex items-center -space-x-px h-8 text-sm"}
         pageLinkClassName={
           "flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
@@ -74,8 +74,11 @@ const Pagination = ({ changePage, pages, rows }) => {
 };
 
 Pagination.propTypes = {
-  changePage: PropTypes.func.isRequired,
-  pages: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
   rows: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  pages: PropTypes.number.isRequired,
 };
+
 export default Pagination;

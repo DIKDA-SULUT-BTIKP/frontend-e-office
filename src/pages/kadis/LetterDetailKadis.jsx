@@ -69,49 +69,75 @@ const LetterDetailKadis = () => {
             disabled
           />
         </div>
-        <div className="mb-5">
-          <label
-            htmlFor=""
-            className="block pb-1 text-sm font-semibold text-gray-600"
-          >
-            Mengharapkan
-          </label>
-          <select
-            className="w-full px-3 py-2 mt-1 border rounded-lg"
-            value={lookForward}
-            onChange={(e) => setLookForward(e.target.value)}
-          >
-            <option value="Proses/Selesaikan Sesuai Ketentuan">
-              Proses/Selesaikan Sesuai Ketentuan
-            </option>
-            <option value="Telah Staf/Pelajar/Kajian/Teliti">
-              Telah Staf/Pelajar/Kajian/Teliti
-            </option>
-            <option value="Koordinasikan">Koordinasikan</option>
-            <option value="Buat Tanggapan dan Saran">
-              Buat Tanggapan dan Saran
-            </option>
-            <option value="Monitor Untuk Masukan">Monitor Untuk Masukan</option>
-            <option value="Teliti Ketersediaan Anggaran">
-              Teliti Ketersediaan Anggaran
-            </option>
-            <option value="Mewakili Kepala Dinas">Mewakili Kepala Dinas</option>
-            <option value="Laporan Tertulis">Laporan Tertulis</option>
-            <option value="Hadapkan Langsung ke Kadis">
-              Hadapkan Langsung ke Kadis
-            </option>
-            <option value="Buatkan Materi/Sambutan">
-              Buatkan Materi/Sambutan
-            </option>
-            <option value="Tangani/Proses Lebih Lanjut">
-              Tangani/Proses Lebih Lanjut
-            </option>
-            <option value="Untuk Minta Perhatian">Untuk Minta Perhatian</option>
-            <option value="Lakukan Pemeriksaan">Lakukan Pemeriksaan</option>
-            <option value="UDK">UDK</option>
-            <option value="File/Ingatkan">File/Ingatkan</option>
-          </select>
-        </div>
+        {lookForward !== null ? (
+          <div className="mb-5">
+            <label
+              htmlFor=""
+              className="block pb-1 text-sm font-semibold text-gray-600"
+            >
+              Mengharapkan
+            </label>
+            <input
+              type="text"
+              value={letter?.lookForward}
+              className="w-full px-3 py-2 mt-1 border rounded-lg"
+              disabled
+            />
+          </div>
+        ) : (
+          <>
+            <div className="mb-5">
+              <label
+                htmlFor=""
+                className="block pb-1 text-sm font-semibold text-gray-600"
+              >
+                Mengharapkan
+              </label>
+              <select
+                className="w-full px-3 py-2 mt-1 border rounded-lg"
+                value={lookForward}
+                onChange={(e) => setLookForward(e.target.value)}
+              >
+                <option value="Proses/Selesaikan Sesuai Ketentuan">
+                  Proses/Selesaikan Sesuai Ketentuan
+                </option>
+                <option value="Telah Staf/Pelajar/Kajian/Teliti">
+                  Telah Staf/Pelajar/Kajian/Teliti
+                </option>
+                <option value="Koordinasikan">Koordinasikan</option>
+                <option value="Buat Tanggapan dan Saran">
+                  Buat Tanggapan dan Saran
+                </option>
+                <option value="Monitor Untuk Masukan">
+                  Monitor Untuk Masukan
+                </option>
+                <option value="Teliti Ketersediaan Anggaran">
+                  Teliti Ketersediaan Anggaran
+                </option>
+                <option value="Mewakili Kepala Dinas">
+                  Mewakili Kepala Dinas
+                </option>
+                <option value="Laporan Tertulis">Laporan Tertulis</option>
+                <option value="Hadapkan Langsung ke Kadis">
+                  Hadapkan Langsung ke Kadis
+                </option>
+                <option value="Buatkan Materi/Sambutan">
+                  Buatkan Materi/Sambutan
+                </option>
+                <option value="Tangani/Proses Lebih Lanjut">
+                  Tangani/Proses Lebih Lanjut
+                </option>
+                <option value="Untuk Minta Perhatian">
+                  Untuk Minta Perhatian
+                </option>
+                <option value="Lakukan Pemeriksaan">Lakukan Pemeriksaan</option>
+                <option value="UDK">UDK</option>
+                <option value="File/Ingatkan">File/Ingatkan</option>
+              </select>
+            </div>
+          </>
+        )}
+
         <div className="mb-5">
           <label
             htmlFor=""

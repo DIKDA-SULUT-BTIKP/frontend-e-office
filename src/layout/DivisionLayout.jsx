@@ -12,6 +12,7 @@ import { MdLogout } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import ModalLogout from "../components/common/modal/ModalLogout";
 import PropTypes from "prop-types";
+import NotFound from "../pages/NotFound";
 
 const DivisionLayout = ({ children }) => {
   const { isError, user } = useSelector((state) => state.auth);
@@ -35,15 +36,15 @@ const DivisionLayout = ({ children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     dispatch(getMe());
-  //   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
 
-  //   useEffect(() => {
-  //     if (isError) {
-  //       navigate("/");
-  //     }
-  //   }, [isError, navigate]);
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+  }, [isError, navigate]);
 
   const menus = [
     { name: "Dasbor", link: "/division/dashboard", icon: MdOutlineDashboard },
@@ -87,6 +88,10 @@ const DivisionLayout = ({ children }) => {
   const closeModal = () => {
     setIsModalLogout(false);
   };
+
+  if (user === null || user === undefined) {
+    return <NotFound />;
+  }
 
   return (
     <section className="flex h-screen overflow-hidden ">
@@ -231,13 +236,6 @@ const DivisionLayout = ({ children }) => {
               {user && user.name && user.name.toUpperCase()}
             </span>
           </h3>
-          <p className="font-light">
-            {" "}
-            Anda login sebagai,{" "}
-            <span className="font-bold">
-              {user && role && role.toUpperCase()}
-            </span>
-          </p>
         </header>
         <main className="h-screen p-4 md:p-6 2xl:p-10">{children}</main>
         {/* <footer className="sticky bottom-0 flex w-full p-4 bg-white z-index drop-shadow-1 box__shadow">

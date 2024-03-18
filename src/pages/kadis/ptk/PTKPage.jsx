@@ -1,27 +1,33 @@
-import KadisLayout from "../../layout/KadisLayout";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import KadisLayout from "../../../layout/KadisLayout";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from "../../components/common/pagination/Pagination";
+import Pagination from "../../../components/common/pagination/Pagination";
+import axios from "axios";
+import { returnStatus } from "../../../utils/helper";
 
-const LettersCompletedPage = () => {
-  const [letters, setLetters] = useState([]);
+const PTKPage = () => {
+  const [ptks, setPtks] = useState([]);
   const [page, setPage] = useState(0);
   const limit = 10;
   const [pages, setPages] = useState(0);
   const [rows, setRows] = useState(0);
-  const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
-  const fetchLetters = async () => {
+  // const status = "";
+  const fetchPtks = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/letter/finish/kadis?search_query=${keyword}&page=${page}&limit=${limit}`
+        `https://apps-dikda.sulutprov.go.id/ptk_baru?limit=${limit}&page=${page}&q=${query}`,
+        {
+          headers: {
+            Authorization: "btikp1234567890pkitb ",
+          },
+          withCredentials: false,
+        }
       );
-      setLetters(response.data.result);
-      setPage(response.data.page);
-      setPages(response.data.totalPage);
-      setRows(response.data.totalRows);
-      console.log(response);
+      const { result } = response.data;
+      setPages(result.totalPage);
+      setRows(result.totalRows);
+      setPtks(result.data);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +35,7 @@ const LettersCompletedPage = () => {
   const searchData = (e) => {
     e.preventDefault();
     setPage(0);
-    setKeyword(query);
+    setQuery(query);
   };
 
   const changePage = ({ selected }) => {
@@ -37,8 +43,8 @@ const LettersCompletedPage = () => {
   };
 
   useEffect(() => {
-    fetchLetters();
-  }, [page, keyword]);
+    fetchPtks();
+  }, [page, query]);
 
   return (
     <KadisLayout>
@@ -79,28 +85,22 @@ const LettersCompletedPage = () => {
               <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-800">
-                    <tr>
+                    <tr className="uppercase">
                       <th
                         scope="col"
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
-                        No
+                        Waktu
                       </th>
                       <th
                         scope="col"
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
-                        Nomor Surat
+                        NAMA GTK
                       </th>
                       <th
                         scope="col"
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      >
-                        Surat
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
                         Status
                       </th>
@@ -108,34 +108,27 @@ const LettersCompletedPage = () => {
                       <th
                         scope="col"
                         className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      ></th>
-
-                      <th scope="col" className="relative py-3.5 px-4">
-                        <span className="sr-only">Edit</span>
+                      >
+                        Aksi
                       </th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                    {letters.map((item, index) => (
+                    {ptks.map((item, index) => (
                       <tr key={item.No}>
                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
                           {index + 1 + page * limit}
                         </td>
                         <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                          {item.name}
+                          {item.nama_gtk}
                         </td>
+
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          {item.originOfLetter}
-                        </td>
-                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          {item.type}
-                        </td>
-                        <td className="px-4 py-4 text-sm whitespace-nowrap">
-                          {item.status}
+                          {returnStatus(item.status)}
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
                           <Link
-                            to={`/kadis/letter/process/${item.uuid}`}
+                            to={`/kadis/ptk/detail/${item.id_biodata_ptk_baru}`}
                             className="p-2 text-gray-500 uppercase transition-colors duration-200 rounded-lg dark:text-gray-300 hover:bg-gray-100"
                           >
                             Detail
@@ -150,11 +143,17 @@ const LettersCompletedPage = () => {
           </div>
         </div>
         <div className="flex justify-end mt-4">
-          <Pagination changePage={changePage} pages={pages} rows={rows} />
+          <Pagination
+            page={page}
+            pages={pages}
+            rows={rows}
+            pageCount={Math.min(10, pages)}
+            onPageChange={changePage}
+          />
         </div>
       </div>
     </KadisLayout>
   );
 };
 
-export default LettersCompletedPage;
+export default PTKPage;

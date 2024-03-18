@@ -15,7 +15,7 @@ const LettersCompletedSecretaryPage = () => {
   const fetchLetters = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/letters/completed/secretary?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:5000/letter/finish/sekretaris?search_query=${keyword}&page=${page}&limit=${limit}`
       );
       setLetters(response.data.result);
       setPage(response.data.page);
@@ -102,13 +102,15 @@ const LettersCompletedSecretaryPage = () => {
                         scope="col"
                         className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
-                        Status
+                        Sifat
                       </th>
 
                       <th
                         scope="col"
                         className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      ></th>
+                      >
+                        Status
+                      </th>
 
                       <th scope="col" className="relative py-3.5 px-4">
                         <span className="sr-only">Edit</span>

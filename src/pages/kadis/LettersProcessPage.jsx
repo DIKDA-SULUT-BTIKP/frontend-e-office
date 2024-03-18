@@ -12,10 +12,11 @@ const LettersProcessPage = () => {
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
+  const status = "DIPROSES KADIS";
   const fetchLetters = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/letters/process/kadis?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:5000/letter/not-finish/kadis?search_query=${keyword}&page=${page}&limit=${limit}&status=${status}`
       );
       setLetters(response.data.result);
       setPage(response.data.page);

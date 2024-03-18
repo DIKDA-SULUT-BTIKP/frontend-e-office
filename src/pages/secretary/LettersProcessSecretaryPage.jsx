@@ -12,10 +12,11 @@ const LettersProcessPage = () => {
   const [rows, setRows] = useState(0);
   const [keyword, setKeyword] = useState("");
   const [query, setQuery] = useState("");
+  const status = "DIPROSES SEKRETARIS";
   const fetchLetters = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/letters/process/secretary?search_query=${keyword}&page=${page}&limit=${limit}`
+        `http://localhost:5000/letter/not-finish/sekretaris?search_query=${keyword}&page=${page}&limit=${limit}&status=${status}`
       );
       setLetters(response.data.result);
       setPage(response.data.page);
@@ -102,13 +103,15 @@ const LettersProcessPage = () => {
                         scope="col"
                         className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
-                        Status
+                        Sifat
                       </th>
 
                       <th
                         scope="col"
                         className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                      ></th>
+                      >
+                        Status
+                      </th>
 
                       <th scope="col" className="relative py-3.5 px-4">
                         <span className="sr-only">Edit</span>

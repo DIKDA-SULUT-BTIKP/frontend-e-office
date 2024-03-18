@@ -30,6 +30,10 @@ select:-webkit-autofill:focus {
   z-index: 9999;
 }
 
+.z-index-top-toast {
+  z-index: 9999;
+}
+
 .z-index {
   z-index: 500;
 }
@@ -69,4 +73,17 @@ select:-webkit-autofill:focus {
 
 .btn-primary {
   @apply transition duration-200 bg-red-500 hover:bg-red-600 focus:bg-red-700 focus:shadow-sm focus:ring-4 focus:ring-red-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block;
+}
+
+.active {
+  color: red;
+}
+
+.active__navlink_sidebar {
+  font-weight: 600;
+  border-right: 3px solid red;
+}
+
+.btn-secondary {
+  @apply uppercase py-2.5 px-5 me-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200;
 }

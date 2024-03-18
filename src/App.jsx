@@ -12,6 +12,10 @@ import LettersNotProcessPage from "./pages/kadis/LettersNotProcessPage";
 import LettersProcessPage from "./pages/kadis/LettersProcessPage";
 import LettersCompletedPage from "./pages/kadis/LettersCompletedPage";
 import LettersDispositionedKadisPage from "./pages/kadis/LettersDispositionedKadisPage";
+import PTKPage from "./pages/kadis/ptk/PTKPage";
+import PTKDetailPage from "./pages/kadis/ptk/PTKDetailPage";
+import PTKRejectedPage from "./pages/kadis/ptk/PTKRejectedPage";
+import PTKWaitingPage from "./pages/kadis/ptk/PTKWaitingPage";
 //Sekretaris
 import DashboardSecretaryPage from "./pages/secretary/DashboardSecretaryPage";
 import LetterDetailKadis from "./pages/kadis/LetterDetailKadis";
@@ -67,6 +71,11 @@ function App() {
           path="/kadis/letters/dispositioned"
           element={<LettersDispositionedKadisPage />}
         />
+        <Route path="/kadis/ptk/waiting" element={<PTKWaitingPage />} />
+        <Route path="/kadis/ptk/rejected" element={<PTKRejectedPage />} />
+        <Route path="/kadis/ptk/accepted" element={<PTKPage />} />
+
+        <Route path="/kadis/ptk/detail/:id" element={<PTKDetailPage />} />
         {/* Secretary */}
         <Route
           path="/secretary/dashboard"

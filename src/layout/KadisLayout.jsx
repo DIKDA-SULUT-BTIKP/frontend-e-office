@@ -8,10 +8,12 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { BsDatabase } from "react-icons/bs";
 import { BsDatabaseCheck } from "react-icons/bs";
 import { BsDatabaseDash } from "react-icons/bs";
+import { FaUsers } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import ModalLogout from "../components/common/modal/ModalLogout";
 import PropTypes from "prop-types";
+import NotFound from "../pages/NotFound";
 
 const KadisLayout = ({ children }) => {
   const { isError, user } = useSelector((state) => state.auth);
@@ -35,15 +37,15 @@ const KadisLayout = ({ children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //   useEffect(() => {
-  //     dispatch(getMe());
-  //   }, [dispatch]);
+  useEffect(() => {
+    dispatch(getMe());
+  }, [dispatch]);
 
-  //   useEffect(() => {
-  //     if (isError) {
-  //       navigate("/");
-  //     }
-  //   }, [isError, navigate]);
+  useEffect(() => {
+    if (isError) {
+      navigate("/");
+    }
+  }, [isError, navigate]);
 
   const menus = [
     { name: "Dasbor", link: "/kadis/dashboard", icon: MdOutlineDashboard },
@@ -53,12 +55,12 @@ const KadisLayout = ({ children }) => {
       icon: BsDatabase,
       submenus: [
         {
-          name: "Belum Disposis",
+          name: "Belum Diproses",
           link: "/kadis/letters/not-process",
           icon: BsDatabaseDash,
         },
         {
-          name: "proses",
+          name: "Dalam Proses",
           link: "/kadis/letters/in-process",
           icon: BsDatabase,
         },
@@ -70,6 +72,28 @@ const KadisLayout = ({ children }) => {
         {
           name: "Disposisi",
           link: "/kadis/letters/dispositioned",
+          icon: BsDatabaseCheck,
+        },
+      ],
+    },
+    {
+      name: "Data PTK",
+      link: "/kadis/ptk",
+      icon: FaUsers,
+      submenus: [
+        {
+          name: "Menunggu",
+          link: "/kadis/ptk/waiting",
+          icon: BsDatabaseDash,
+        },
+        {
+          name: "Diterima",
+          link: "/kadis/ptk/accepted",
+          icon: BsDatabase,
+        },
+        {
+          name: "Ditolak",
+          link: "/kadis/ptk/rejected",
           icon: BsDatabaseCheck,
         },
       ],
@@ -92,6 +116,10 @@ const KadisLayout = ({ children }) => {
   const closeModal = () => {
     setIsModalLogout(false);
   };
+
+  if (user === null || user === undefined) {
+    return <NotFound />;
+  }
 
   return (
     <section className="flex h-screen overflow-hidden ">
@@ -236,13 +264,6 @@ const KadisLayout = ({ children }) => {
               {user && user.name && user.name.toUpperCase()}
             </span>
           </h3>
-          <p className="font-light">
-            {" "}
-            Anda login sebagai,{" "}
-            <span className="font-bold">
-              {user && role && role.toUpperCase()}
-            </span>
-          </p>
         </header>
         <main className="h-screen p-4 md:p-6 2xl:p-10">{children}</main>
         {/* <footer className="sticky bottom-0 flex w-full p-4 bg-white z-index drop-shadow-1 box__shadow">
